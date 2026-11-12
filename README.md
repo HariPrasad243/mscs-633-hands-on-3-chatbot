@@ -154,7 +154,7 @@ repository URL link to share the code.
 - Source code: this project folder (see `manifest.txt` for the full file list).
 - Manifest: `MANIFEST.in` and `manifest.txt` in the project root.
 - Word document: `Hands-On-Assignment-3_QA-Chatbot.docx` in the project root —
-  it includes the screenshot and a placeholder line for the GitHub URL.
+  it includes the screenshot and the GitHub URL above.
 - GitHub repository URL: **https://github.com/HariPrasad243/mscs-633-hands-on-3-chatbot** — the source code for this project is published there.
   The student should paste this URL into the Blackboard submission
   text before submitting.
