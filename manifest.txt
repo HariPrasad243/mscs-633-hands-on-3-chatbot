@@ -1,0 +1,44 @@
+MANIFEST — Hands-On Assignment 3: Create a Simple Q&A Chatbot with Python
+Student: Hari Prasad Rayala — MSCS-633-B01, University of the Cumberlands
+Due: Sunday, November 22, 2026, 10:59 PM CST
+
+Versions: Python 3.12.3, Django 5.1.4, ChatterBot 1.2.15, spaCy 3.8.18, en_core_web_sm 3.8.0, SQLAlchemy 2.0.57, python-docx 1.2.0
+
+Deliverable files:
+./.gitignore
+./Hands-On-Assignment-3_QA-Chatbot.docx
+./MANIFEST.in
+./README.md
+./chat/__init__.py
+./chat/admin.py
+./chat/apps.py
+./chat/chatbot.py
+./chat/management/__init__.py
+./chat/management/commands/__init__.py
+./chat/management/commands/train_chatbot.py
+./chat/migrations/__init__.py
+./chat/models.py
+./chat/templates/chat/chat.html
+./chat/templates/chat/home.html
+./chat/tests.py
+./chat/training_data.py
+./chat/urls.py
+./chat/views.py
+./chatbot_db.sqlite3
+./db.sqlite3
+./make_docx.py
+./manage.py
+./manifest.txt
+./qa_chatbot/__init__.py
+./qa_chatbot/asgi.py
+./qa_chatbot/settings.py
+./qa_chatbot/urls.py
+./qa_chatbot/wsgi.py
+./requirements.txt
+./screenshots/chatbot-running.png
+
+Notes:
+- venv/ is excluded (recreated with: python3 -m venv venv && venv/bin/pip install -r requirements.txt).
+- db.sqlite3 is the Django database created by 'python manage.py migrate'.
+- chatbot_db.sqlite3 is the ChatterBot storage database created by 'python manage.py train_chatbot' (28 Q&A pairs, 56 statements).
+- GitHub repository URL: [Add your GitHub repository URL here] — no repository was created and no URL was invented.

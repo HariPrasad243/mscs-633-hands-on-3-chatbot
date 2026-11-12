@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Q&amp;A Chatbot — AI Fundamentals</title>
+  <style>
+    body { font-family: Arial, Helvetica, sans-serif; margin: 0; background: #f4f6f8; color: #222; }
+    .wrap { max-width: 760px; margin: 32px auto; padding: 0 20px; }
+    h1 { font-size: 26px; }
+    .hint { color: #555; }
+    #chat-history { background: #fff; border: 1px solid #ddd; border-radius: 10px; padding: 16px; min-height: 320px; margin-bottom: 16px; }
+    .msg { margin: 10px 0; padding: 10px 12px; border-radius: 8px; line-height: 1.5; }
+    .user { background: #dbeafe; text-align: right; }
+    .bot { background: #eef1f4; }
+    .bot .who, .user .who { font-weight: bold; display: block; font-size: 13px; margin-bottom: 4px; }
+    form { display: flex; gap: 10px; }
+    #question { flex: 1; padding: 12px; font-size: 16px; border: 1px solid #bbb; border-radius: 6px; }
+    button { padding: 12px 20px; font-size: 16px; background: #1a5fb4; color: #fff; border: 0; border-radius: 6px; cursor: pointer; }
+    a { color: #1a5fb4; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>AI Fundamentals Q&amp;A Chatbot</h1>
+    <p class="hint">Ask about artificial intelligence, machine learning, deep learning, NLP, Python, Django, or ChatterBot. <a href="/">Back to home</a></p>
+    <div id="chat-history" aria-live="polite">
+      <div class="msg bot"><span class="who">Chatbot</span>Hello! I am the AI Fundamentals chatbot. Ask me anything about artificial intelligence, machine learning, deep learning, NLP, Python, Django, or ChatterBot.</div>
+    </div>
+    <form id="chat-form">
+      {% csrf_token %}
+      <input id="question" name="question" type="text" placeholder="Type your question here…" autocomplete="off" required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+  <script>
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("question");
+    const history = document.getElementById("chat-history");
+    const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
+
+    function addMessage(who, text, cls) {
+      const div = document.createElement("div");
+      div.className = "msg " + cls;
+      const label = document.createElement("span");
+      label.className = "who";
+      label.textContent = who;
+      div.appendChild(label);
+      div.appendChild(document.createTextNode(text));
+      history.appendChild(div);
+      history.scrollTop = history.scrollHeight;
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const question = input.value.trim();
+      if (!question) return;
+      addMessage("You", question, "user");
+      input.value = "";
+      try {
+        const response = await fetch("/api/chat/", {
+          method: "POST",
+          headers: {"Content-Type": "application/json", "X-CSRFToken": csrfToken},
+          body: JSON.stringify({message: question}),
+        });
+        const data = await response.json();
+        addMessage("Chatbot", data.answer || data.error || "Sorry, I could not answer that.", "bot");
+      } catch (error) {
+        addMessage("Chatbot", "Sorry, there was an error reaching the chatbot. Please try again.", "bot");
+      }
+    });
+    // Optional demo/deep-link: /chat/?ask=What+is+machine+learning%3F
+    // automatically sends that question once the page loads.
+    const preset = new URLSearchParams(window.location.search).get("ask");
+    if (preset) {
+      input.value = preset;
+      form.requestSubmit();
+    }
+  </script>
+</body>
+</html>

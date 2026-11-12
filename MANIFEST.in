@@ -1,0 +1,15 @@
+# MANIFEST.in — files included in the Hands-On Assignment 3 submission
+# (in addition to the Python packages themselves).
+include README.md
+include requirements.txt
+include MANIFEST.in
+include manifest.txt
+include make_docx.py
+include Hands-On-Assignment-3_QA-Chatbot.docx
+include screenshots/chatbot-running.png
+recursive-include chat *.py
+recursive-include chat/templates *.html
+recursive-include qa_chatbot *.py
+global-exclude *.pyc
+global-exclude __pycache__
+prune venv
